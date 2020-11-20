@@ -1,0 +1,148 @@
+class Node
+  attr_accessor :value, :next_node
+  
+  def initialize(value, next_node)
+	  @value = value
+    @next_node = next_node
+  end
+end
+
+class LinkedList
+# create a new node
+  def initialize(value)
+    @head = Node.new(value, nil)
+  end
+  
+#appended node to the list  
+  def add(value)
+    current_node = @head
+    # transverse the list as long as the next node is not empty
+    while current_node.next_node != nil
+      current_node = current_node.next_node
+      return current_node
+    end
+    # when the next node becomes empty add a new node to it
+    current_node.next_node = Node.new(value, nil)
+    return current_node.next_node
+  end
+
+  def get(index)
+  current_node = @head
+  
+  # 10.times { |i| puts "hello #{i}" }
+  # This will print hello 0, hello 1, hello 2, etc.
+  
+  index.times { current_node = current_node.next_node }
+  return current_node.value
+  end
+  
+  def find(value)
+    current_node = @head
+    # assuming list is not empty
+    return false if !current_node.next_node
+    #assuming the head is no the matching value
+    return true if current_node.value == value
+    
+    #iterate the list node by node
+    while (current_node = current_node.next_node)
+      return current_node if current_node.value == value
+    end    
+  end
+  
+  def add_at(index, value) 
+     current_node = @head
+     previous_node = nil
+
+     if index == 0
+       current_node = Node.new(value)
+       current_node.next_node = @head
+       @head = current_node
+     else
+       (0...index).each do |i| 
+         #assuming list is not empty
+         #return false if !current_node.next_node OR
+          return false if current_node.nil?
+          
+          previous_node = current_node
+          current_node = current_node.next_node
+       end
+       
+        next_nodes = Node.new(val)
+        previous.next_node = next_nodes
+        next_nodes.next_node = current_node
+     end
+     return true
+  end
+  
+  def delete(value)
+    current_node = @head
+    
+    if current_node.value = value
+      # we change the head to the next node
+      @head = current_node.next_node
+    else
+      #then u loop throuh the list as long it is not empty
+      while (current_node.next_node != nil) && (current_node.next_node.value != value) 
+         if (current_node.next_node == nil) || (current_node.next_node.value == value)
+           #it will skip one node
+           current_node.next_node =  current_node.next_node.next_node
+         else
+           current_node.next_node = current_node.next_node
+         end
+      end
+      current_node.next_node = current_node.next_node.next_node
+    end
+  end
+  
+    def remove(index)
+      current_node = @head
+      previous_node = nil
+    
+    if index == 0
+      # we change the head to the next node
+      @head = current_node.next_node
+    else
+      (0...index).each do |j|
+        return false if current_node.nil?
+            previous_node = current_node
+            current_node = current_node.next_node
+      end
+      previous_node.next_node = current_node.next_node
+    end
+   return true
+end
+
+  def deletion(index)
+        current_node = @head
+      previous_node = nil
+    
+    if index == 0
+      # we change the head to the next node
+      @head = current_node.next_node
+    else
+      (0...index).each do |j|
+        while (current_node.next_node != nil) && (current_node.next_node.value != value) 
+            if (current_node.next_node == nil) || (current_node.next_node.value == value)
+                 #it will skip one node
+                  current_node.next_node =  current_node.next_node.next_node
+             else
+                current_node.next_node = current_node.next_node
+             end
+        end
+      end
+       current_node.next_node = current_node.next_node.next_node
+    end
+end
+
+list = LinkedList.new
+
+list.add(3)
+list.add(5)
+list.add_at(1, 11)
+list.add_at(0, 13)
+
+puts list.get(2)
+# => 11
+
+puts list.get(3)
+# => 5
