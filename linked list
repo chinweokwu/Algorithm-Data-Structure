@@ -129,8 +129,8 @@ end
                 current_node.next_node = current_node.next_node
              end
         end
-      end
-       current_node.next_node = current_node.next_node.next_node
+	current_node.next_node = current_node.next_node.next_node
+      end   
     end
 end
 
