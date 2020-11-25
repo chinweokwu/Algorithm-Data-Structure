@@ -1,0 +1,28 @@
+def balanced_brackets?(string)
+  stack = []
+ parenthsis = {
+   "[" => "]",
+   "(" => ")",
+   "{" => "}"
+ }
+ open_parens = parenthsis.keys
+ close_parens = parenthsis.values
+ 
+ string.each_char do |char|
+   if open_parens.include?(char)
+     stack << char
+   elsif close_parens.include?(char)
+     char == parenthsis[stack.last] ? stack.pop : (return false)
+   end
+ end
+ stack.empty?
+end
+
+puts balanced_brackets?('(hello)[world]')
+# => true
+
+puts balanced_brackets?('([)]')
+# => false
+
+puts balanced_brackets?('[({}{}{})([])]')
+# => true
