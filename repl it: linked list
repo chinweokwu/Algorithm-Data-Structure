@@ -1,0 +1,52 @@
+class Node
+  attr_accessor :value, :next_node
+  
+  def initialize(value, next_node = nil)
+	  @value = value
+    @next_node = next_node
+  end
+end
+
+class LinkedList
+
+  def initialize
+    @arr = []
+  end
+  
+ 
+  def add(value)
+    unless @arr.empty?
+      @arr[-1].next_node = value
+    end
+    @arr << Node.new(value)
+  end
+  
+  def add_at(index, item)
+    list = @arr.empty? ? nil : @arr[index].value
+    to_be_inserted = Node.new(item, list)
+    @arr.insert(index, to_be_inserted)
+    @arr[index-1].next_node = @arr[index].value unless index.zero? 
+  end
+ 
+  def get(index)
+    @arr[index].value
+  end
+ 
+ def remove(index)
+    @arr.delete_at(index)
+    @arr[index-1].next_node = @arr[index].value if index > 0
+ end
+  
+end
+list = LinkedList.new
+
+list.add(3)
+list.add(5)
+list.add_at(1, 11)
+list.add_at(0, 13)
+
+puts list.get(2)
+# => 11
+
+puts list.get(3)
+# => 5
