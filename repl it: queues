@@ -5,12 +5,10 @@
     @arr = Array.new
   end
   def push(number)
-    # your code here
     @arr << number
   end
   
   def pop
-    # your code here
     @arr.pop
   end
 end
