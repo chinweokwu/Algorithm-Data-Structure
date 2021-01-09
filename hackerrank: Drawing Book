@@ -1,0 +1,14 @@
+function pageCount(n, p) {
+    if (p/2  <= checkfromback(n,p)){
+      return p/2
+    } else {
+      checkfromback(n,p)
+    }
+};
+
+function checkfromback(n,p){
+  n/2 == 0 ? (n-p)/2 : (n-p + 1)/2
+}
+
+
+console.log(pageCount(5,4))
