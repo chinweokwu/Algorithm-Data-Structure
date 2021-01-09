@@ -32,6 +32,7 @@ puts stack.min
 
 stack.pop
 stack.push(7)
+stack.push(10)
 puts stack.min
 # => 3
 
