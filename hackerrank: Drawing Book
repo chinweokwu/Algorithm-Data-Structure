@@ -1,3 +1,4 @@
+JAVASCRIPT
 function pageCount(n, p) {
     if (p/2  <= checkfromback(n,p)){
       return p/2
@@ -12,3 +13,16 @@ function checkfromback(n,p){
 
 
 console.log(pageCount(5,4))
+
+RUBY
+def pageCount(n, p)
+    if p/2 <= countfromBack(n,p)
+        p/2
+    else
+        countfromBack(n,p)
+    end
+end
+
+def countfromBack(n,p)
+   n.odd? ? (n-p)/2 : (n-p+1)/2 
+end
