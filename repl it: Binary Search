@@ -1,0 +1,17 @@
+def sqrt(number)
+  sqrt_recursive(number, 0, number)
+end
+
+def sqrt_recursive(number, min_interval, max_interval)
+  middle = (min_interval + max_interval)/2
+  if middle * middle  == number
+      return middle
+  elsif middle * middle < number
+      return sqrt_recursive(number, min_interval + 1, max_interval)
+  else
+      return sqrt_recursive(number, min_interval, max_interval-1)
+  end
+end
+
+puts sqrt(25)
+puts sqrt(7056)
