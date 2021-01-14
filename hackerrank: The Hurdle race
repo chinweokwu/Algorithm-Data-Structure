@@ -1,0 +1,11 @@
+function hurdleRace(k, height) {
+
+ let maxz = Math.max(...height);
+
+ if (maxz > k ){
+    return  maxz - k
+ } else {
+   return 0
+ }
+
+}
