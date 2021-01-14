@@ -1,0 +1,17 @@
+function angryProfessor(k, a) {
+let neg = []
+for(let i = 0; i < a.length; i++){
+  if(a[i] <= 0){
+    neg.push(a[i])
+  }
+}
+
+if(neg.length >= k){
+  return "NO"
+}else {
+  return "YES"
+}
+}
+
+
+console.log(angryProfessor(3,[-2,-1,0,1,2]))
