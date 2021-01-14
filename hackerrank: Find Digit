@@ -1,0 +1,17 @@
+function findDigits(n) {
+let arr = []
+let res = []
+let strNum = n.toString();
+for (let i = 0; i < strNum.length; i += 1) {
+  // +strNum turn string to numbers
+    arr.push(+strNum.charAt(i));
+}
+for(let j = 0; j < arr.length; j++){
+  if (n%arr[j]=== 0){
+     res.push(arr[j])
+  }
+}
+ return res.length
+}
+
+console.log(findDigits(1012))
