@@ -1,0 +1,19 @@
+function encryption(s = '') {
+  // let str = s.replace(/\s/g,"") to trim
+  s = s.trim('')
+  let arr = []
+  let wordLen= Math.sqrt(s.length);
+  let higSqrt= Math.ceil(wordLen);
+  
+  //console.log(s.match(/.{1,3}/g)); to  divide a string
+  for(let i = 0; i < s.length; i+=higSqrt)
+     arr.push(s.substring(i, i + higSqrt));
+     let str = "";
+     Array.from({length: higSqrt}).forEach((_,i) => {
+       arr.forEach(a => {
+         str += (a[i] || '')
+       });
+       str += " "
+     });
+   return str
+}
