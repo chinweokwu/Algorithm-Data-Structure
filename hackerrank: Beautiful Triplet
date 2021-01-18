@@ -1,0 +1,15 @@
+function beautifulTriplets(d, arr) {
+  let result = 0
+  for(let i = 0; i < arr.length; i++){
+    let num1 = arr[i] + d
+    let num2 = num1 + d
+
+    if(arr.includes(num1) && arr.includes(num2)){
+      result += 1
+    }
+  }
+console.log(result)
+}
+
+
+console.log(beautifulTriplets(3, [1,2,4,5,7,8,10]))
