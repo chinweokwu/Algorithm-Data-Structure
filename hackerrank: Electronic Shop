@@ -12,4 +12,4 @@ for(let i = 0; i < keyboards.length; i++){
   }else {
    return Math.max(...total)
   }
-};
+}
