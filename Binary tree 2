@@ -1,0 +1,62 @@
+The organization of the nodes can generally be understood as taking the value of the root node and progressively positioning the nodes dependent on whether they have a value less than or greater than the value of the parent node.
+When one considers navigation of a primitive data structure such as an array, the most commonly used method in ruby would be an enumerable. Using .each, .map, or .select would allow a user to visit and alter every element. This same enumerable logic applies to navigating hashes as well as most other primitive data structures.
+Unlike more concrete data types, which have a natural method of navigation, abstract data types, or user defined data types, have many more abstract methods of navigation. When considering a binary search tree, the use of a traditional ruby enumerable isn’t practically useful. .each, .map and .select are valid when called on a node in the tree, but they only list the attributes of each node rather than effectively accessing every node in the tree. A user would potentially be able to access the child nodes of parent node when calling .each on the parent, but it isn’t the most effective solution for the problem.
+There are three common algorithms used for navigating a binary tree: pre-order, in-order, and post-order. Each algorithm has its own general uses and conventions, but the algorithms are simply tools being used to achieve the greater goal of effectively navigating the binary tree. There is no algorithm that should be used 100% of the time for one situation and never for another situation. The algorithms are highly flexible and which one to use is completely dependent on the specific problem at hand. Below, I will include an example tree which will be used to showcase each algorithm for tree traversal.
+  image_address: https://miro.medium.com/max/297/1*0g54sWz9nNJ8VFMigOUAow.png
+Pre-Order:
+The pre-order algorithm is most often used when the user wants to explore the nodes closer to the top of the tree (nodes closer to the root node) rather than the 
+lowest nodes or leaves of the tree. This algorithm is also commonly used when the user wants to create an exact copy of the tree that they are navigating. 
+Using the pre-order tree traversal algorithm on the above tree would result in a node navigation order of [50, 17, 12, 9, 14, 23, 19, 72, 54, 67, 76]. 
+This traversal method is a top down traversal method, which can be understood from the algorithm starting at the root and hitting every potential parent node before 
+hitting any leaves.This algorithm begins at the root(50), ends at the rightmost node(76).
+In-Order:
+The in-order algorithm is most often used when the user wants to navigate every node in the tree in non-decreasing order. 
+This method is often used for undoing structural changes made to a binary search tree and returning it to its original structure of nodes pre-modification. 
+The navigation of the algorithm is fairly simple in this case. The navigation order would be [9, 12, 14, 17, 19, 23, 50, 54, 67, 72, 76]. In this case, 
+the in-order algorithm seems to be accessing the leaves of the binary tree relatively quickly in comparison to the pre-order algorithm.
+This algorithm begins at the left most node(9), ends at the rightmost node(76).
+Post-Order:
+The post-order algorithm is primarily useful if the user wants to navigate to the leaves of the binary tree before navigating to any of the nodes closer to the root node.
+Additionally, this traversal method is useful for deleting every node in the binary tree. Using the post-order tree traversal algorithm on the above tree 
+would result in a node navigation order of [9, 14, 12, 19, 23, 17, 67, 54, 76, 72, 50].
+This algorithm begins at the left most node(9) and ends at the root(50).
+
+class Node
+  attr_reader :data
+  attr_accessor :left, :right
+
+  def initialize(data)
+    @data = data
+  end
+end
+
+def array_to_tree(array, i)
+  return nil if i >= array.length || array[i] == 0
+
+  node = Node.new(array[i])
+  node.left = array_to_tree(array, 2*i+1)
+  node.right = array_to_tree(array, 2*i+2)
+
+  node
+end
+
+def pre_order(node)
+  if node == nil
+    return ''
+  end
+
+  result = "#{node.data} "
+  result += pre_order(node.left)
+  result += pre_order(node.right)
+end
+
+def post_order(node)
+     return '' if node.nil?
+    result = post_order(node.left)
+    result += post_order(node.right)
+    result += "#{node.data} "
+end
+
+tree = array_to_tree([10, 1, 2, 3, 4, 5, 6], 0)
+puts post_order(tree)
+#=> 3 4 1 5 6 2 10
