@@ -1,0 +1,67 @@
+def graph(hash_graph)
+  # write your code here
+  route=[]
+  route += contain_destiny(hash_graph,0,hash_graph[0],4,route)
+
+end
+
+def contain_destiny(hash, node, edges, dest, route)
+  puts "node #{node} edges #{edges}"
+  return nil if route.include?(node)
+  edges.each do |edge|
+    route.unshift(node)
+    # route.push result
+    puts "result  #{result}"
+   result = contain_destiny(hash, edge, hash[edge], dest, route)
+   if !(result == false ) 
+    puts "route  #{route}"
+    return result unless !result
+   end
+  end
+
+  #no found destination return false
+  return false
+end
+
+def visit(graph,visited , route, key)
+  # puts "visiting #{key}"
+  return_nodes = []
+  return visited if visited.include?(key)
+  route += [key] unless route.include?(key)
+  # key=visited[index]
+  # puts "edges #{graph[key]}"
+  graph[key].each do |edge|
+    visited.push(key) unless visited.include?(key)
+    return_nodes.push(edge) unless route.include?(edge)
+    route.push(edge) unless route.include?(edge)
+    # puts "flag before #{visited} return_nodes #{return_nodes}, routes #{route} "
+    # puts "NOT to visit #{edge}"  if visited.include?(edge)
+    # puts "abou to visit #{edge}"  unless visited.include?(edge)
+    # str = STDIN.getc
+    return_nodes += visit(graph, visited, route, edge) unless visited.include?(edge)
+    
+    #visited.push(edge) unless visited.include?(edge)
+    #puts "flag after #{visited} return_nodes #{return_nodes} "
+    # str = STDIN.getc
+  end
+  
+  puts "after the if"
+  return route
+end
+
+def depth_first_search(graph)
+  # write your code here
+  visited = []
+  route = []
+  visited = visit(graph,visited, route,0)
+end
+
+p depth_first_search({
+  0 => [2], 
+  1 => [4], 
+  2 => [5, 0, 3], 
+  3 => [2], 
+  4 => [1, 5], 
+  5 => [4, 2]
+})
+# => [0, 2, 5, 4, 1, 3]
