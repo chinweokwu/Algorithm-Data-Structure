@@ -1,0 +1,63 @@
+  
+class Node
+  attr_reader :data
+  attr_accessor :left, :right
+  
+  def initialize data
+    @data = data
+  end
+end
+
+def insert(array,index, len)
+   puts("inserting index #{index} and value #{array[index]}")
+   root = nil
+   return nil if array[index] ==0
+   if index < len
+    root= Node.new(array[index]) unless array[index] ==0
+    left= index*2+1
+    right= index*2+2
+
+    root.left = insert(array, left, len)
+    root.right = insert(array, right, len)
+
+    end
+    puts("returned root #{root.data}") unless root.nil?
+    return root
+  end
+
+# helper function
+def array_to_tree(array, index = 0)
+  # use your function from the previous challenge
+  return insert(array, 0, array.length)
+end
+
+# helper function
+def height(node)
+  # use your function from the previous challenge
+  maxHeight = 0
+
+    if !node.nil?
+      puts ("height of node  #{node.data}")
+      leftHeight = height(node.left)
+      return leftHeight if leftHeight == -1
+      rightHeight = height(node.right)
+      return rightHeight if rightHeight == -1
+      return -1 if (leftHeight - rightHeight).abs >1
+      maxHeight = [leftHeight, rightHeight].max
+    else
+      return 0
+    end
+    return maxHeight + 1
+end
+
+def balanced_tree?(array)
+  root = array_to_tree(array)
+  # write your code here
+  return (height(root) > -1)
+end
+
+puts balanced_tree?([1, 2, 0, 3, 4, 0, 0])
+# => false
+
+puts balanced_tree?([1, 2, 3, 4, 5, 6, 7])
+# => true
