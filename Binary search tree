@@ -11,31 +11,25 @@ class BST
     def initialize()
     @root = nil
   end
- # insert a node in BST 
+
 
   def insert(node, root = @root)
-  #  puts("node ", node.data)
-  #  puts("current root ", root.data) unless root.nil?
     if @root.nil?
       @root=node
-  #    puts('first root', @root.data)
     else
-  #    puts("@root not nil", root.data, node.data)
       if node.data < root.data
-  #      puts("visit left", root.left.nil? )
         if !root.left.nil?
          insert(node, root.left)
         else
-  #       puts("put on left leaf", node.data)
+
          root.left=node
         end
        else
-  #      puts("has right son?", !root.right.nil?)
+
         if !root.right.nil?
-  #        puts("visit rigth", root.right.nil? )
+
          insert(node, root.right)
         else
-  #       puts("put on right leaf", node.data)
          root.right=node
         end
       end
