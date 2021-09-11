@@ -8,43 +8,46 @@ class Node
 end
 
 class BST
-     def initialize
-        @root = nil
+    def initialize()
+    @root = nil
+  end
+ # insert a node in BST 
+
+  def insert(node, root = @root)
+  #  puts("node ", node.data)
+  #  puts("current root ", root.data) unless root.nil?
+    if @root.nil?
+      @root=node
+  #    puts('first root', @root.data)
+    else
+  #    puts("@root not nil", root.data, node.data)
+      if node.data < root.data
+  #      puts("visit left", root.left.nil? )
+        if !root.left.nil?
+         insert(node, root.left)
+        else
+  #       puts("put on left leaf", node.data)
+         root.left=node
+        end
+       else
+  #      puts("has right son?", !root.right.nil?)
+        if !root.right.nil?
+  #        puts("visit rigth", root.right.nil? )
+         insert(node, root.right)
+        else
+  #       puts("put on right leaf", node.data)
+         root.right=node
+        end
+      end
     end
 
-    def insert(value)
-        @newNode = Node.new(value)
-        if @root.nil?
-            @root = @newNode
-            return
-        else
-            @current = @root
-            while true
-                if value < @current.value
-                    if @current.left.nil?
-                        @current.left = @newNode
-                        return
-                    else
-                        @current = @current.left
-                    end
-                elsif value > @current.value
-                    if @current.right.nil?
-                        @current.right = @newNode
-                        return
-                    else
-                        @current = @current.right
-                    end
-                end
-            end
-        end 
-    end
   end
 
-  def pre_order(node = @root)
-    return '' if node.nil?
-    result = "#{node.data} "
-    result += pre_order(node.left)
-    result += pre_order(node.right)
+  def pre_order(node = @root, str = '')
+    str += node.data.to_s + ' '
+    str += pre_order(node.left) if node.left
+    str += pre_order(node.right) if node.right
+    return str
   end
 end
 
