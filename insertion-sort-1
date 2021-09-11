@@ -1,0 +1,31 @@
+def insertion_sort(arr)
+ c = arr.length - 1
+ piv = arr[c]
+ while c > 0 do
+    if piv < arr[c-1] 
+       arr[c] = arr[c-1] 
+       puts arr.join(" ")
+       c-=1
+    else
+       arr[c]=piv
+       puts arr.join(" ")
+       break
+    end
+    
+ end
+    if arr[0] > piv
+       arr[0] = piv
+       puts arr.join(" ")
+    end 
+end
+insertion_sort([1, 3, 2])
+# => 1 3 3
+#    1 2 3
+
+puts '-' * 20
+
+insertion_sort([1, 4, 6, 9, 3])
+# => 1 4 6 9 9
+#    1 4 6 6 9
+#    1 4 4 6 9
+#    1 3 4 6 9
