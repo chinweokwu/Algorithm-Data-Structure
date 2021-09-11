@@ -1,0 +1,18 @@
+def partition(array)
+  # write your code here
+  resulta = []
+  resulta.push array[0]
+  piv=0
+  for i in 1..(array.length - 1)
+    if array[i] > resulta[piv]
+      resulta.push(array[i])
+    else
+      piv = piv + 1
+      resulta.insert(piv-1, array[i])
+    end  
+  end
+  return resulta
+end
+
+p partition([4, 5, 3, 9, 1])
+# => [3, 1, 4, 5, 9]
