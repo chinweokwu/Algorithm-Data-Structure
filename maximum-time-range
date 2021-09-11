@@ -1,0 +1,7 @@
+def maximum_time_range(arrray)
+  # write your code here
+  
+end
+
+p maximum_time_range([10, 18, 4, 6, 14, 16, 5, 8])
+# => [[4, 8], [10, 18]]
