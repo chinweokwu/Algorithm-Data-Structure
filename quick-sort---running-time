@@ -1,0 +1,67 @@
+def quicksort(array, begin_index = 0, end_index =  array.length - 1)
+  count = 0
+ 
+  if begin_index < end_index
+    arrayX = partition(array, begin_index, end_index)
+    p "response"
+    p arrayX
+    pivot_index = arrayX[0]
+    count = count + arrayX[1]
+
+    p array  unless (end_index + 1 - begin_index) == array.length
+
+    count = count + quicksort(array, begin_index, pivot_index - 1) unless (begin_index == (pivot_index - 1) )
+    count = count + quicksort(array, pivot_index + 1, end_index) unless ((pivot_index+1 == end_index))
+    
+  end
+  
+  return count
+  
+end
+
+def partition(array, begin_index, end_index)
+  i= begin_index
+  pivot=array[end_index]
+  count = 0
+  for j in (begin_index..end_index-1)
+    if (array[j] <= pivot) 
+      puts "swapt #{array[i]} -> #{array[j]}" 
+      array[i], array[j] = array[j], array[i]
+      count = count + 1
+      i= i + 1
+    end
+
+  end
+  
+  puts "swapt #{array[i]} -> #{array[end_index]} pivot" 
+  array[i], array[end_index] = array[end_index], array[i] 
+
+  count = count + 1 
+  return i, count
+
+end
+
+def insertion_sort(array)
+  count = 0
+  for i in 1...(array.length)
+    current = array[i]
+    j = i - 1
+    while j >= 0 && current < array[j]
+      array[j + 1] = array[j]
+      # increment the counter after the swap
+      count += 1
+      j -= 1
+    end
+    array[j + 1] = current
+  end
+  return count
+end
+
+def quicksort_running_time(array)
+    array2 = array.clone
+    countQuick = quicksort(array, 0, array.length - 1)
+
+    countInsert = insertion_sort(array2)
+
+    return countInsert - countQuick
+end
