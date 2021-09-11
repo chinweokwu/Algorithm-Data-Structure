@@ -1,0 +1,36 @@
+def graph(hash_graph)
+  # write your code here
+  route=[]
+  route += contain_destiny(hash_graph,0,hash_graph[0],4,route)
+
+end
+
+def contain_destiny(hash, node, edges, dest, route)
+  #puts "node #{node} edges #{edges}"
+   return [node] if node == dest
+  edges.each do |edge|
+   result = contain_destiny(hash, edge, hash[edge], dest, route)
+   if !(result == false ) 
+    route.unshift(node)
+    # route.push result
+    #puts "result  #{result}"
+    #puts "route  #{route}"
+    return result unless !result
+   end  end
+
+  #no found destination return false
+  return false
+end
+
+
+hash = { 
+  0 => [2], 
+  1 => [4], 
+  2 => [5, 0, 3], 
+  3 => [2], 
+  4 => [1, 5], 
+  5 => [4, 2]
+}
+
+p graph(hash)
+# => [0, 2, 5, 4]
