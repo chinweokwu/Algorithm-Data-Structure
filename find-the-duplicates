@@ -1,0 +1,21 @@
+def duplicates(arr1, arr2)
+  # write your code here
+  i = 0
+  while i < arr1.length
+    j = 0
+    while j < arr2.length
+      if arr2[j] === arr1[i]
+        arr2.delete_at(j)
+        break
+      else
+        j = j + 1
+      end
+    end
+    i = i + 1
+  end
+  return arr2.sort!
+end
+
+
+p duplicates([203, 204, 205, 206, 207, 208, 203, 204, 205, 206], [203, 204, 204, 205, 206, 207, 205, 208, 203, 206, 204, 205, 206])
+# => [204, 205, 206]
