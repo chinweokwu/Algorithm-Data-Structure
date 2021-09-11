@@ -1,0 +1,46 @@
+def insertion_sort(arr, i, count)
+ c = i
+ piv = arr[c]
+ 
+ while c > 0 do
+    if piv < arr[c-1] 
+       arr[c], arr[c-1]  = arr[c-1] , arr[c]
+       count = count + 1
+      # puts "count sumatory #{count}"
+       c-=1
+    else
+       arr[c]=piv
+      # puts arr.join(" ")
+       break
+    end
+ end
+    if arr[0] > piv
+       arr[0] = piv
+    #   puts arr.join(" ")
+    end 
+   # puts "count after while c #{count}"
+  return count
+end
+
+def sort_itself(arr)
+  i = 0
+  count = 0
+  while i < arr.length - 1 do
+    if arr[i] > arr[i + 1]
+      count = insertion_sort(arr, i + 1, count ) 
+     # puts "returned count #{count}"
+    end
+   # puts arr.join(" ") 
+    i +=1
+  end
+return count
+end
+
+
+def running_time(array)
+  # write your code here
+  return sort_itself(array) 
+end
+
+puts running_time([2, 1, 3, 1, 2])
+# => 4
