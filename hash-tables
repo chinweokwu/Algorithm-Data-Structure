@@ -1,0 +1,80 @@
+class Node
+  attr_accessor :value, :next
+
+  def initialize(value, next_node)
+      @value = value
+      @next = next_node
+  end
+end
+
+class LinkedList
+
+  def initialize(value)
+    @head = Node.new(value, nil)
+  end
+
+  def add_to_list(value)
+    current_node = @head
+    while current_node.next != nil
+      current_node = current_node.next
+    end
+    current_node.next = Node.new(value, nil)
+  end
+
+  def delete(value)
+    current_node.next = @head
+    if current_node.value = value
+      @head = current_node.next
+    else
+      while (current_node.next != nil) && (current_node.next.val != val)
+        current_node = current_node.next
+      end
+      unless current_node.next == nil
+        current_node.next = current_node.next.next
+      end
+    end
+  end
+
+  def return_list
+    elements = []
+    current_node = @head
+    while current_node.next != nil
+      elements << current_node.value
+      current_node = current_node.next
+    end
+    elements << current_node.value
+  end
+end
+
+
+def hash_table(arr)
+  # write your code here
+  htable = Hash.new();
+
+  arr.each do |item| 
+    # item = item * -1 if item < 0
+    key = item.abs() % 11
+    puts "item #{item} -> key #{key}"
+    if !htable.has_key?(key)
+      htable[key] = LinkedList.new(item)
+    else
+      htable[key].add_to_list(item)
+    end
+    # puts htable[key].return_list()
+  end
+  retArr = []
+  htable.keys.sort.each do |k|
+    puts "key #{k}"
+    p htable[k].return_list()
+    retArr = retArr + htable[k].return_list()
+    puts "ret Arr"
+    p retArr
+  end
+  retArr
+end
+
+p hash_table([12, 24, 125, 5, 91, 1106, 2, 1021, 29, 3536, 10])
+# => [12, 24, 2, 91, 125, 5, 3536, 1106, 29, 1021, 10]
+
+p hash_table([2, 341, 73, 8265, 234004, 602, 7400000, 200000000])
+# => [341, 234004, 2, 200000000, 7400000, 8265, 73, 602]
