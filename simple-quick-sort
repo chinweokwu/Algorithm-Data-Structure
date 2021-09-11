@@ -1,0 +1,63 @@
+def partition(array)
+  # write your code here
+  return array if array.length == 1
+  resulta = []
+  resulta.push array[0]
+  piv=0
+  for i in 1..(array.length - 1)
+    if array[i] > resulta[piv]
+      resulta.push(array[i])
+    else
+      piv = piv + 1
+      resulta.insert(piv-1, array[i])
+    end  
+  end
+
+  #debug
+  
+ 
+  return resulta if resulta.length < 2
+  if (piv > 0)
+  leftArray = partition(resulta[0..piv - 1]) unless resulta[0..piv-1].length < 1 || piv < 1
+  else
+   leftArray = []
+  end
+
+  left = leftArray.join(" ")  
+  print left + "\n" if leftArray.length > 1
+
+  #puts "pivote #{resulta[piv]}, piv #{piv}" if resulta[piv] == 90
+  #puts "leftArray" << leftArray.join(" ")  if resulta[piv] == 90
+  #puts resulta[piv + 1..resulta.length].join(",") if resulta[piv] == 90
+  #gets if resulta[piv] == 90
+
+  if (piv + 1 < resulta.length)
+    rightArray = partition(resulta[piv + 1..resulta.length]) 
+  else
+    rightArray = []
+  end
+  
+  # puts "pivote  cambiado #{resulta[piv]}, piv #{piv}"
+  # puts "rightArray" << rightArray.join(" ")  if resulta[piv] == 90
+  # gets if resulta[piv] == 90
+  
+  temporal =[]
+  # p resulta[piv]
+  temporal.push(resulta[piv])
+  # p("call 46") if temporal[0] == 46
+  
+  #left = leftArray.join(" ")  
+  #print left + "\n" if leftArray.length > 1
+  
+  right = rightArray.join(" ")
+  print right + "\n" if rightArray.length > 1
+  # gets
+  ret = leftArray + temporal + rightArray
+    
+  # p ret.reject { |item| item.nil? || item == '' } 
+  return ret.reject { |item| item.nil? || item == '' }
+end
+
+def simple_quicksort(array)
+  print partition(array).join(" ")+ "\n"
+end
