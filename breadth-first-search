@@ -1,0 +1,65 @@
+def graph(hash_graph)
+  # write your code here
+  route=[]
+  route += contain_destiny(hash_graph,0,hash_graph[0],4,route)
+
+end
+
+def contain_destiny(hash, node, edges, dest, route)
+  puts "node #{node} edges #{edges}"
+  return nil if route.include?(node)
+  edges.each do |edge|
+   result = contain_destiny(hash, edge, hash[edge], dest, route)
+   if !(result == false ) 
+    route.unshift(node)
+    # route.push result
+    puts "result  #{result}"
+    puts "route  #{route}"
+    return result unless !result
+   end
+  end
+
+  #no found destination return false
+  return false
+end
+
+def visit(graph,visited, index, level)
+  puts "level #{level}"
+  return_nodes = []
+  key=visited[index]
+  graph[key].each do |edge|
+    visited.push(edge) unless visited.include?(edge)
+    return_nodes.push(edge) unless visited.include?(edge)
+    puts "flag visited #{visited} return_nodes #{return_nodes} "
+  end
+  
+  if index < visited.length - 1
+    range1= index+1..visited.length-1
+    puts "range #{range1}"
+    next_level = level +1
+    range1.each do |node| 
+      puts("node #{node}")
+      result = visit(graph, visited, node, next_level)
+      puts("result #{result}")
+      return_nodes += result if result.is_a?(Array)
+      puts "returned visited #{result} level #{next_level}" 
+    end
+  end
+  return return_nodes
+end
+
+def bfs(graph)
+  # write your code here
+  visited = [0]
+  visited += visit(graph,visited, 0, 0)
+end
+
+p bfs({
+  0 => [2], 
+  1 => [4], 
+  2 => [5, 0, 3], 
+  3 => [2], 
+  4 => [1, 5], 
+  5 => [4, 2]
+})
+# => [0, 2, 5, 3, 4, 1]
