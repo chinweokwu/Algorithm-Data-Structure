@@ -1,0 +1,90 @@
+def merge_sort(array1, array2)
+  # write your code here
+  i = 0
+  j = 0
+  result = []
+
+  loop do
+     #puts "START LOOP j= #{j} i= #{i}"
+    if indice(array1[i]) <= indice(array2[j])
+      result.push(array1[i])
+      i = i + 1
+      #puts "break i?"
+      break unless i < array1.length
+      
+    else
+      result.push(array2[j])
+      j = j + 1
+      #puts "break J?"
+      break unless j < array2.length
+    end
+    #puts "result j= #{j} i= #{i}"
+    #p result
+  end
+
+  if i == array1.length
+    #puts "result + array2 j= #{j} i= #{i} "
+    #p array2[j..array2.length]
+    result = result + array2[j..array2.length-1]
+  else
+    #puts "result + array1"
+    #p array1[j..array1.length-1]
+    result = result + array1[i..array1.length-1]
+  end
+  
+  result
+  
+end
+
+def indice(str)
+  arr = str.split(" ")
+  if arr.length > 1 
+   return arr[0].to_i
+  else
+   return 0 if arr.length === 0
+  end
+end
+
+def strPart(str)
+  arr = str.split(" ")
+  if arr.length > 1 
+   return arr[1]
+  else
+   return str if arr.length === 1
+  end
+end
+
+
+def full_merge_sort_rec(array)
+  # write your code here
+  ret = []
+  ret1=[]
+  ret2=[]
+  if array.length > 1
+    #divide array and call marge sort
+    middle = array.length / 2
+    array1, array2 = array.each_slice( (array.size/2.0).round ).to_a
+    ret1 = full_merge_sort_rec(array1)
+    ret2 = full_merge_sort_rec(array2)
+    ret = merge_sort(ret1, ret2)
+    
+    #p ret
+    return ret
+  else
+    ret = array
+    #p ret
+    return ret
+  end
+end
+
+def full_merge_sort(array)
+  final=[]
+  result=[]
+  full_merge_sort_rec(array).each { |pair|
+  final.push(strPart(pair)) 
+  }
+  p final
+end
+
+full_merge_sort(["0 ab", "6 cd", "0 ef", "6 gh", "4 ij", "0 ab", "6 cd", "0 ef", "6 gh", "0 ij", "4 that", "3 be", "0 to", "1 be", "5 question", "1 or", "2 not", "4 is", "2 to", "4 the"])
+# => ["ab", "ef", "ab", "ef", "ij", "to", "be", "or", "not", "to", "be", "ij", "that", "is", "the", "question", "cd", "gh", "cd", "gh"]
